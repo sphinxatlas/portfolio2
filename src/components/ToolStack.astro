@@ -1,0 +1,32 @@
+---
+import { getToolGroups } from '../lib/content';
+import SectionHeader from './SectionHeader.astro';
+
+const groups = await getToolGroups();
+---
+
+<section class="border-t border-line" aria-labelledby="tools-title">
+  <div class="container-page py-16 md:py-20">
+    <SectionHeader label="Tool stack" id="tools-title" />
+    <div class="border-t border-line">
+      {
+        groups.map(({ group, tools }) => (
+          <div class="grid-12 gap-y-3 border-b border-line py-6">
+            <h3 class="type-label col-span-12 pt-1 text-muted md:col-span-3">{group}</h3>
+            <ul class="col-span-12 md:col-span-9">
+              {tools.map((tool) => (
+                <li class="flex flex-wrap items-baseline justify-between gap-x-6 gap-y-1 py-1.5">
+                  <span>
+                    {tool.name}
+                    {tool.note && <span class="text-muted"> · {tool.note}</span>}
+                  </span>
+                  <span class="type-label text-muted">{tool.level}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
+        ))
+      }
+    </div>
+  </div>
+</section>

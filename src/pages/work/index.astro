@@ -1,0 +1,23 @@
+---
+import CaseCard from '../../components/CaseCard.astro';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { getCases } from '../../lib/content';
+
+const cases = await getCases();
+---
+
+<BaseLayout
+  title="Work"
+  description="Case studies in marketing ops, lifecycle and product marketing: concept projects on fictional companies with real market data, and real work in regulated medtech."
+  ogSlug="work"
+>
+  <div class="container-page pt-16 md:pt-24">
+    <h1 class="type-h1">Work</h1>
+    <p class="mt-6 max-w-[62ch] text-muted">
+      Concept projects use a fictional company and real market data. Real work is labelled as such.
+    </p>
+    <div class="mt-14 grid grid-cols-1 gap-6 md:grid-cols-2">
+      {cases.map((entry) => <CaseCard entry={entry} headingLevel="h2" />)}
+    </div>
+  </div>
+</BaseLayout>

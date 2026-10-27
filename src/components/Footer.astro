@@ -1,0 +1,26 @@
+---
+import { getSite } from '../lib/content';
+
+const site = await getSite();
+const year = new Date().getFullYear();
+const linkClass = 'inline-flex min-h-11 items-center';
+---
+
+<footer class="mt-24 border-t border-line">
+  <div class="container-page grid-12 gap-y-6 py-10">
+    <ul class="col-span-12 flex flex-wrap gap-x-8 md:col-span-8">
+      <li>
+        <a href={`mailto:${site.email}`} class={linkClass} data-event="email_click" data-event-location="footer">
+          {site.email}
+        </a>
+      </li>
+      <li><a href={site.linkedin} class={linkClass}>LinkedIn</a></li>
+      <li><a href={site.github} class={linkClass}>GitHub</a></li>
+      <li><a href={site.youtube} class={linkClass}>YouTube</a></li>
+    </ul>
+    <div class="col-span-12 flex flex-col justify-center text-[15px] leading-6 text-muted md:col-span-4 md:items-end">
+      <p>Based in {site.location} ({site.timezone})</p>
+      <p>&copy; {year} {site.name}</p>
+    </div>
+  </div>
+</footer>

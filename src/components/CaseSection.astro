@@ -1,0 +1,19 @@
+---
+// Collapsible case section, native <details>, no JavaScript. Available in every case MDX file as <CaseSection>.
+interface Props {
+  title: string;
+  open?: boolean;
+}
+
+const { title, open = false } = Astro.props;
+---
+
+<details class="disclosure border-b border-line" open={open}>
+  <summary class="flex min-h-14 items-center justify-between gap-6 py-4">
+    <h2 class="type-h3">{title}</h2>
+    <span class="disclosure-marker shrink-0" aria-hidden="true"></span>
+  </summary>
+  <div class="prose-body max-w-[68ch] pb-8">
+    <slot />
+  </div>
+</details>

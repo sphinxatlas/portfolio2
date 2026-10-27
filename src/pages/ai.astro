@@ -1,0 +1,92 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+
+const firstPass = ['Research', 'Drafts', 'Code scaffolding', 'Image concepts'];
+const humanDecides = ['Claims', 'Data changes in the CRM', 'Anything sent to customers'];
+const failures = [
+  { title: 'Hallucinated claims', example: '[TODO: real example]' },
+  { title: 'Wrong field mappings', example: '[TODO: real example]' },
+  { title: 'Generic copy', example: '[TODO: real example]' },
+];
+
+// Keep this table in sync with src/components/Analytics.astro and the data-event attributes.
+const events = [
+  { name: 'case_open', when: 'A case page loads', props: 'slug' },
+  { name: 'demo_click', when: 'Someone clicks "Open live demo" on a case', props: 'slug' },
+  { name: 'loom_click', when: 'Someone clicks "Watch 2-min Loom" on a case', props: 'slug' },
+  { name: 'repo_click', when: 'Someone clicks "View repo" on a case', props: 'slug' },
+  { name: 'email_click', when: 'Someone clicks any email link', props: 'location (hero, home_cta, about, contact, footer)' },
+];
+---
+
+<BaseLayout title="How I work with AI" description="AI drafts, I decide. Here is where I use it and where I don't." ogSlug="ai">
+  <div class="container-page pt-16 md:pt-24">
+    <h1 class="type-h1">How I work with AI</h1>
+    <p class="mt-6 max-w-[56ch] text-[19px] leading-[30px]">AI drafts, I decide. Here is where I use it and where I don't.</p>
+
+    <div class="mt-16 grid grid-cols-1 gap-12 border-t border-line pt-12 md:grid-cols-2">
+      <section aria-labelledby="first-pass">
+        <span class="rule mb-5" aria-hidden="true"></span>
+        <h2 id="first-pass" class="type-h2">Where AI does the first pass</h2>
+        <ul class="mt-6 list-disc space-y-2 pl-5">
+          {firstPass.map((item) => <li>{item}</li>)}
+        </ul>
+      </section>
+      <section aria-labelledby="human-decides">
+        <h2 id="human-decides" class="type-h2 md:mt-[22px]">Where a human always decides</h2>
+        <ul class="mt-6 list-disc space-y-2 pl-5">
+          {humanDecides.map((item) => <li>{item}</li>)}
+        </ul>
+      </section>
+    </div>
+
+    <section class="mt-16 border-t border-line pt-12" aria-labelledby="what-goes-wrong">
+      <span class="rule mb-5" aria-hidden="true"></span>
+      <h2 id="what-goes-wrong" class="type-h2">What goes wrong and how I catch it</h2>
+      <div class="mt-8 grid grid-cols-1 gap-6 md:grid-cols-3">
+        {
+          failures.map((item) => (
+            <div class="card p-6">
+              <h3 class="type-h3">{item.title}</h3>
+              <p class="mt-3 text-muted">{item.example}</p>
+            </div>
+          ))
+        }
+      </div>
+    </section>
+
+    <section class="mt-16 border-t border-line pt-12" aria-labelledby="tracking-plan">
+      <span class="rule mb-5" aria-hidden="true"></span>
+      <h2 id="tracking-plan" class="type-h2">This site's own tracking plan</h2>
+      <p class="mt-6 max-w-[62ch] text-muted">
+        Page views come from Vercel Web Analytics, which uses no cookies. On top of that, five custom events:
+      </p>
+      <div class="mt-8 overflow-x-auto">
+        <table class="w-full min-w-[560px] border-collapse text-left text-[15px] leading-[22px]">
+          <thead>
+            <tr class="border-b border-ink">
+              <th scope="col" class="type-label py-3 pr-6 font-normal text-muted">Event</th>
+              <th scope="col" class="type-label py-3 pr-6 font-normal text-muted">Fires when</th>
+              <th scope="col" class="type-label py-3 font-normal text-muted">Properties</th>
+            </tr>
+          </thead>
+          <tbody>
+            {
+              events.map((event) => (
+                <tr class="border-b border-line">
+                  <td class="py-3 pr-6 align-top font-mono text-[14px]">{event.name}</td>
+                  <td class="py-3 pr-6 align-top">{event.when}</td>
+                  <td class="py-3 align-top text-muted">{event.props}</td>
+                </tr>
+              ))
+            }
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <p class="mt-16 border-t border-line pt-8">
+      <span class="type-label mr-3 text-muted">Tools</span>Claude, Claude Code, n8n
+    </p>
+  </div>
+</BaseLayout>

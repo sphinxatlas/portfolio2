@@ -1,0 +1,43 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { getSite } from '../lib/content';
+
+const site = await getSite();
+---
+
+<BaseLayout
+  title="Contact"
+  description="Fastest route: email me with the role link. I reply within one working day."
+  ogSlug="contact"
+>
+  <div class="container-page pt-16 md:pt-24">
+    <h1 class="type-h1">Contact</h1>
+    <p class="mt-6 max-w-[56ch] text-[19px] leading-[30px]">
+      Fastest route: email me with the role link. I reply within one working day.
+    </p>
+
+    <dl class="mt-14 max-w-[640px] border-t border-line">
+      <div class="grid grid-cols-1 gap-1 border-b border-line py-5 sm:grid-cols-[140px_1fr] sm:items-center">
+        <dt class="type-label text-muted">Email</dt>
+        <dd>
+          <a
+            href={`mailto:${site.email}`}
+            class="inline-flex min-h-11 items-center text-[19px] break-all"
+            data-event="email_click"
+            data-event-location="contact"
+          >
+            {site.email}
+          </a>
+        </dd>
+      </div>
+      <div class="grid grid-cols-1 gap-1 border-b border-line py-5 sm:grid-cols-[140px_1fr] sm:items-center">
+        <dt class="type-label text-muted">LinkedIn</dt>
+        <dd>
+          <a href={site.linkedin} class="inline-flex min-h-11 items-center text-[19px] break-all">
+            linkedin.com/in/sophiepaulussen
+          </a>
+        </dd>
+      </div>
+    </dl>
+  </div>
+</BaseLayout>

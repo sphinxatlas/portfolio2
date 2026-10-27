@@ -1,0 +1,32 @@
+---
+import SectionHeader from './SectionHeader.astro';
+---
+
+<section class="border-t border-line" aria-labelledby="real-work-title">
+  <div class="container-page py-16 md:py-20">
+    <SectionHeader label="Real work" id="real-work-title" />
+    <div class="grid grid-cols-1 gap-6 md:grid-cols-2">
+      <article class="card relative flex flex-col p-6 md:p-8">
+        <p class="type-label text-muted">Phagenesis · Medtech</p>
+        <h3 class="type-h3 mt-4">Running B2B marketing inside EU MDR</h3>
+        <p class="mt-3 text-muted">
+          Email programs to 30k+ contacts, 20+ congresses and KOL events, five agencies, every claim reviewed.
+        </p>
+        <p class="mt-auto pt-6">
+          <a
+            href="/work/phagenesis"
+            class="inline-flex min-h-11 items-center font-medium after:absolute after:inset-0 after:content-['']"
+            aria-label="Read case: Running B2B marketing inside EU MDR"
+          >
+            Read case
+          </a>
+        </p>
+      </article>
+      <article class="card flex flex-col p-6 md:p-8">
+        <p class="type-label text-muted">SP Consulting · Freelance</p>
+        <h3 class="type-h3 mt-4">SP Consulting, freelance since 2024</h3>
+        <p class="mt-3 text-muted">[TODO: engagement types]</p>
+      </article>
+    </div>
+  </div>
+</section>

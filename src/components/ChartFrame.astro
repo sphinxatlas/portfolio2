@@ -1,0 +1,18 @@
+---
+// Wrap every chart in a case with this. On concept cases the synthetic data label is required,
+// so it shows by default. Pass real={true} only on real cases with real data.
+interface Props {
+  title: string;
+  real?: boolean;
+}
+
+const { title, real = false } = Astro.props;
+---
+
+<figure class="card my-6 p-4 md:p-6">
+  <slot />
+  <figcaption class="mt-4 flex flex-wrap items-baseline justify-between gap-x-6 gap-y-2 text-[15px] leading-6">
+    <span>{title}</span>
+    {!real && <span class="type-label font-semibold text-accent-ink">Synthetic data, illustrative only</span>}
+  </figcaption>
+</figure>

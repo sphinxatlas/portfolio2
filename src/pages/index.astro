@@ -1,0 +1,62 @@
+---
+import CaseCard from '../components/CaseCard.astro';
+import Hero from '../components/Hero.astro';
+import ProofStrip from '../components/ProofStrip.astro';
+import RealWorkStrip from '../components/RealWorkStrip.astro';
+import SectionHeader from '../components/SectionHeader.astro';
+import ToolStack from '../components/ToolStack.astro';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { getSelectedCases, getSite } from '../lib/content';
+
+const site = await getSite();
+const cases = await getSelectedCases();
+
+const person = {
+  '@context': 'https://schema.org',
+  '@type': 'Person',
+  name: site.name,
+  jobTitle: 'Marketing Operations and Lifecycle Marketer',
+  url: Astro.site?.href,
+  email: `mailto:${site.email}`,
+  address: { '@type': 'PostalAddress', addressCountry: 'ES' },
+  knowsLanguage: ['nl', 'en', 'de'],
+  sameAs: [site.linkedin, site.github, site.youtube],
+};
+---
+
+<BaseLayout
+  title="Home"
+  fullTitle="Sophie Paulussen · Marketer who builds the stack"
+  description="I design and run the systems behind growth: CRM and lifecycle, lead routing, analytics, and AI workflows with human review built in."
+  ogSlug="home"
+  jsonLd={person}
+>
+  <Hero email={site.email} />
+  <ProofStrip />
+
+  <section class="border-t border-line" aria-labelledby="selected-work-title">
+    <div class="container-page py-16 md:py-20">
+      <SectionHeader label="Selected work" id="selected-work-title" />
+      <div class="grid grid-cols-1 gap-6 md:grid-cols-2">
+        {cases.map((entry) => <CaseCard entry={entry} />)}
+      </div>
+    </div>
+  </section>
+
+  <RealWorkStrip />
+  <ToolStack />
+
+  <section class="border-t border-line" aria-labelledby="cta-title">
+    <div class="container-page py-20 md:py-28">
+      <span class="rule mb-8" aria-hidden="true"></span>
+      <h2 id="cta-title" class="type-h2 max-w-[24ch]">
+        Hiring for marketing ops, lifecycle or product marketing? I reply within one working day.
+      </h2>
+      <div class="mt-10">
+        <a href={`mailto:${site.email}`} class="btn btn-primary" data-event="email_click" data-event-location="home_cta">
+          Email me
+        </a>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

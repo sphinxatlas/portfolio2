@@ -1,0 +1,20 @@
+[
+  { "id": "hubspot", "name": "HubSpot", "group": "CRM and automation", "level": "Learning", "note": "Certifications in progress" },
+  { "id": "marketing-automation-phagenesis", "name": "Marketing automation platform at Phagenesis", "group": "CRM and automation", "level": "Shipped with" },
+
+  { "id": "python", "name": "Python", "group": "Build", "level": "Shipped with" },
+  { "id": "javascript-node", "name": "JavaScript/Node", "group": "Build", "level": "Shipped with" },
+  { "id": "supabase", "name": "Supabase", "group": "Build", "level": "Shipped with" },
+  { "id": "lovable", "name": "Lovable", "group": "Build", "level": "Shipped with" },
+  { "id": "n8n", "name": "n8n", "group": "Build", "level": "Learning" },
+
+  { "id": "claude", "name": "Claude", "group": "AI", "level": "Use daily" },
+  { "id": "ai-image-generation", "name": "AI image generation", "group": "AI", "level": "Use daily" },
+
+  { "id": "ga4", "name": "GA4", "group": "Analytics and ads", "level": "Learning" },
+  { "id": "looker-studio", "name": "Looker Studio", "group": "Analytics and ads", "level": "Learning" },
+  { "id": "google-ads", "name": "Google Ads", "group": "Analytics and ads", "level": "Certified" },
+
+  { "id": "canva", "name": "Canva", "group": "Content", "level": "Use daily" },
+  { "id": "video-editing", "name": "Video editing and storytelling for YouTube", "group": "Content", "level": "Use daily" }
+]

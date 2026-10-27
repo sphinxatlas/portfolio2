@@ -1,0 +1,44 @@
+---
+// Title, description, canonical, Open Graph, Twitter card and optional JSON-LD for every page.
+interface Props {
+  /** Page name, used in the title pattern "{title} · Sophie Paulussen, Marketing Ops and Lifecycle". */
+  title: string;
+  /** Use this instead of the pattern when the page needs its own full title (the home page). */
+  fullTitle?: string;
+  description: string;
+  /** Which generated image to use: /og/{ogSlug}.png */
+  ogSlug: string;
+  type?: 'website' | 'article';
+  noindex?: boolean;
+  jsonLd?: Record<string, unknown>;
+}
+
+const { title, fullTitle, description, ogSlug, type = 'website', noindex = false, jsonLd } = Astro.props;
+
+const pageTitle = fullTitle ?? `${title} · Sophie Paulussen, Marketing Ops and Lifecycle`;
+const canonical = new URL(Astro.url.pathname.replace(/\/$/, '') || '/', Astro.site).href;
+const ogImage = new URL(`/og/${ogSlug}.png`, Astro.site).href;
+---
+
+<title>{pageTitle}</title>
+<meta name="description" content={description} />
+<link rel="canonical" href={canonical} />
+{noindex && <meta name="robots" content="noindex" />}
+
+<meta property="og:type" content={type} />
+<meta property="og:site_name" content="Sophie Paulussen" />
+<meta property="og:title" content={pageTitle} />
+<meta property="og:description" content={description} />
+<meta property="og:url" content={canonical} />
+<meta property="og:image" content={ogImage} />
+<meta property="og:image:width" content="1200" />
+<meta property="og:image:height" content="630" />
+<meta property="og:image:alt" content={title} />
+<meta property="og:locale" content="en" />
+
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content={pageTitle} />
+<meta name="twitter:description" content={description} />
+<meta name="twitter:image" content={ogImage} />
+
+{jsonLd && <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />}

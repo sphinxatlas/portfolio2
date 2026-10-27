@@ -1,0 +1,27 @@
+---
+interface Props {
+  email: string;
+}
+
+const { email } = Astro.props;
+---
+
+<section class="container-page pt-16 pb-20 md:pt-24 md:pb-28" aria-labelledby="hero-title">
+  <div class="grid-12">
+    <div class="col-span-12 lg:col-span-10">
+      <p class="type-label text-muted">Marketing ops · Lifecycle · Product marketing</p>
+      <h1 id="hero-title" class="type-h1 mt-6 max-w-[16ch]">Marketer who builds the stack.</h1>
+      <p class="mt-8 max-w-[62ch] text-[19px] leading-[30px]">
+        I design and run the systems behind growth: CRM and lifecycle, lead routing, analytics, and AI workflows with
+        human review built in. Three years in regulated medtech taught me to move fast without breaking claims.
+      </p>
+      <p class="mt-6 text-[15px] leading-6 text-muted">
+        Open to remote roles · Based in Spain (CET) · EU citizen · Dutch, English, German
+      </p>
+      <div class="mt-10 flex flex-wrap gap-3">
+        <a href="/work" class="btn btn-primary">See the work</a>
+        <a href={`mailto:${email}`} class="btn btn-secondary" data-event="email_click" data-event-location="hero">Email me</a>
+      </div>
+    </div>
+  </div>
+</section>

@@ -1,0 +1,10 @@
+---
+// Accent tag shown on every concept case card and page.
+interface Props {
+  label?: string;
+}
+
+const { label = 'Concept project · Fictional company · Real market data' } = Astro.props;
+---
+
+<p class="type-label font-semibold text-accent-ink">{label}</p>

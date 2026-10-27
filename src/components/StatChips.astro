@@ -1,0 +1,25 @@
+---
+// Four facts about a case: Time, Skills, Tools, Output. Effort and deliverables only, no result metrics.
+interface Props {
+  stats: { time: string; skills: string[]; tools: string[]; output: string };
+}
+
+const { stats } = Astro.props;
+const items = [
+  { label: 'Time', value: stats.time },
+  { label: 'Skills', value: stats.skills.join(', ') },
+  { label: 'Tools', value: stats.tools.join(', ') },
+  { label: 'Output', value: stats.output },
+];
+---
+
+<dl class="grid grid-cols-2 gap-3 md:grid-cols-4">
+  {
+    items.map((item) => (
+      <div class="card p-4">
+        <dt class="type-label text-muted">{item.label}</dt>
+        <dd class="mt-2 text-[15px] leading-[22px]">{item.value}</dd>
+      </div>
+    ))
+  }
+</dl>

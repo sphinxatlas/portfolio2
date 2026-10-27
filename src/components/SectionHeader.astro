@@ -1,0 +1,28 @@
+---
+// Section opener: the one accent rule, a label and an optional H2.
+interface Props {
+  label: string;
+  title?: string;
+  id?: string;
+}
+
+const { label, title, id } = Astro.props;
+---
+
+<div class="mb-10">
+  <span class="rule mb-5" aria-hidden="true"></span>
+  {
+    title ? (
+      <>
+        <p class="type-label text-muted">{label}</p>
+        <h2 id={id} class="type-h2 mt-3 max-w-[20ch]">
+          {title}
+        </h2>
+      </>
+    ) : (
+      <h2 id={id} class="type-label text-muted">
+        {label}
+      </h2>
+    )
+  }
+</div>

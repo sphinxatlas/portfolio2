@@ -1,0 +1,83 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { getSite } from '../lib/content';
+
+const site = await getSite();
+
+// [TODO: portrait photo] Add a square photo at src/assets/portrait.jpg, then replace the line below with:
+//   import portraitImage from '../assets/portrait.jpg';
+//   const portrait = { src: portraitImage, alt: 'Portrait of Sophie Paulussen' };
+// and render it with <Image> from astro:assets. Set showPortraitSlot to false to hide the slot entirely.
+const showPortraitSlot = true;
+---
+
+<BaseLayout
+  title="About"
+  description="I build the marketing systems most teams outsource. Dutch marketer based in Spain, three years of B2B marketing in regulated medtech, open to remote roles."
+  ogSlug="about"
+>
+  <div class="container-page pt-16 md:pt-24">
+    <div class="grid-12 gap-y-12">
+      <div class="col-span-12 lg:col-span-8">
+        <h1 class="type-h1 max-w-[18ch]">I build the marketing systems most teams outsource.</h1>
+
+        <div class="prose-body mt-10 max-w-[64ch]">
+          <p>
+            I'm Sophie, a Dutch marketer based in Spain. For three years I ran B2B marketing at Phagenesis, a medtech
+            company where every claim goes through review under EU MDR. I built email programs for more than 30,000
+            contacts, delivered over 20 congresses and KOL events, and kept five agencies shipping on time.
+          </p>
+          <p>
+            Working in a regulated market taught me the habit I bring everywhere: build the system so the right thing is
+            the easy thing. Since 2024 I've done that for clients through SP Consulting, and in 2026 I finished an MSc in
+            Strategic Marketing and Communication at IE Business School, with honors in AI and Tech for Marketing.
+          </p>
+          <p>
+            I write Python and JavaScript, build with Supabase, and use AI where it saves real time, with a human checking
+            anything that matters. On YouTube I edit and tell stories, which keeps my copy honest.
+          </p>
+          <p>
+            I'm looking for a fully remote role in marketing ops, lifecycle, growth or product marketing at a startup or
+            scale-up. I work in CET, speak Dutch and English natively and German well, and can join as an employee or
+            contract through my own company.
+          </p>
+        </div>
+      </div>
+
+      {
+        showPortraitSlot && (
+          <div class="col-span-12 sm:col-span-6 lg:col-span-3 lg:col-start-10">
+            <div class="flex aspect-square w-full items-center justify-center rounded-[4px] border border-dashed border-line bg-placeholder p-6 text-center text-[15px] leading-6 text-muted">
+              [TODO: portrait photo]
+            </div>
+          </div>
+        )
+      }
+    </div>
+
+    <div class="mt-20 grid grid-cols-1 gap-12 border-t border-line pt-12 md:grid-cols-2">
+      <section aria-labelledby="education">
+        <span class="rule mb-5" aria-hidden="true"></span>
+        <h2 id="education" class="type-h2">Education</h2>
+        <ul class="mt-6 space-y-4">
+          <li>
+            MSc Strategic Marketing and Communication, IE Business School
+            <span class="block text-muted">2026, honors in AI and Tech for Marketing</span>
+          </li>
+          <li>BSc European Public Health, Maastricht University</li>
+          <li>AI in Healthcare specialization, Stanford <span class="text-muted">(online)</span></li>
+        </ul>
+      </section>
+      <section aria-labelledby="certifications">
+        <h2 id="certifications" class="type-h2 md:mt-[22px]">Certifications</h2>
+        <ul class="mt-6 space-y-4">
+          <li>Google Ads</li>
+          <li>HubSpot <span class="text-muted">(in progress)</span></li>
+        </ul>
+        <p class="mt-10">
+          <a href={`mailto:${site.email}`} class="btn btn-primary" data-event="email_click" data-event-location="about">Email me</a>
+        </p>
+      </section>
+    </div>
+  </div>
+</BaseLayout>

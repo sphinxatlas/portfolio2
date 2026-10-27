@@ -1,0 +1,14 @@
+---
+// Small "In progress" label, driven by the case `status` field. Live cases show nothing.
+interface Props {
+  status: 'in-progress' | 'live';
+}
+
+const { status } = Astro.props;
+---
+
+{
+  status === 'in-progress' && (
+    <span class="type-label inline-flex items-center rounded-[4px] border border-line px-2 py-1 text-muted">In progress</span>
+  )
+}

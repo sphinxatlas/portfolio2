@@ -1,0 +1,28 @@
+---
+import { render } from 'astro:content';
+import ChartFrame from '../../components/ChartFrame.astro';
+import CaseSection from '../../components/CaseSection.astro';
+import CaseLayout from '../../layouts/CaseLayout.astro';
+import { getCases, type Case } from '../../lib/content';
+
+export async function getStaticPaths() {
+  const cases = await getCases();
+  return cases.map((entry, i) => ({
+    params: { slug: entry.data.slug },
+    props: { entry, prev: cases[i - 1] ?? null, next: cases[i + 1] ?? null },
+  }));
+}
+
+interface Props {
+  entry: Case;
+  prev: Case | null;
+  next: Case | null;
+}
+
+const { entry, prev, next } = Astro.props;
+const { Content } = await render(entry);
+---
+
+<CaseLayout entry={entry} prev={prev} next={next}>
+  <Content components={{ CaseSection, ChartFrame }} />
+</CaseLayout>

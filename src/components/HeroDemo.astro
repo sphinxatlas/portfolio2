@@ -1,0 +1,20 @@
+---
+// Registry of interactive heroes. A case uses one by setting `heroDemo: <name>` in its MDX frontmatter.
+// To add a demo: build it in src/components/demos, import it here and add one line below.
+// Astro needs the client:visible directive written here, which is why demos are listed by name.
+import ExampleDemo from './demos/ExampleDemo';
+
+interface Props {
+  name: string;
+}
+
+const { name } = Astro.props;
+const known = ['example'];
+if (!known.includes(name)) {
+  throw new Error(`Unknown heroDemo "${name}". Register it in src/components/HeroDemo.astro.`);
+}
+---
+
+<div class="card p-6 md:p-10">
+  {name === 'example' && <ExampleDemo client:visible />}
+</div>

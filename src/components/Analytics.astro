@@ -1,0 +1,36 @@
+---
+// Vercel Web Analytics plus custom events.
+// Any element with data-event="name" sends that event on click. Extra data-event-* attributes
+// become event properties, e.g. data-event="email_click" data-event-location="footer".
+// An element with data-case-open="slug" sends case_open once when the page loads.
+import VercelAnalytics from '@vercel/analytics/astro';
+---
+
+<VercelAnalytics />
+
+<script>
+  import { track } from '@vercel/analytics';
+
+  type Props = Record<string, string>;
+
+  function eventProps(el: HTMLElement): Props {
+    const props: Props = {};
+    for (const [key, value] of Object.entries(el.dataset)) {
+      if (key.startsWith('event') && key !== 'event' && value !== undefined) {
+        const name = key.slice('event'.length);
+        props[name.charAt(0).toLowerCase() + name.slice(1)] = value;
+      }
+    }
+    return props;
+  }
+
+  document.addEventListener('click', (event) => {
+    const target = event.target;
+    if (!(target instanceof Element)) return;
+    const el = target.closest<HTMLElement>('[data-event]');
+    if (el?.dataset.event) track(el.dataset.event, eventProps(el));
+  });
+
+  const caseEl = document.querySelector<HTMLElement>('[data-case-open]');
+  if (caseEl?.dataset.caseOpen) track('case_open', { slug: caseEl.dataset.caseOpen });
+</script>

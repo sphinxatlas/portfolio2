@@ -1,0 +1,129 @@
+---
+import { Image } from 'astro:assets';
+import ConceptTag from '../components/ConceptTag.astro';
+import HeroDemo from '../components/HeroDemo.astro';
+import StatChips from '../components/StatChips.astro';
+import StatusLabel from '../components/StatusLabel.astro';
+import type { Case } from '../lib/content';
+import BaseLayout from './BaseLayout.astro';
+
+interface Props {
+  entry: Case;
+  prev: Case | null;
+  next: Case | null;
+}
+
+const { entry, prev, next } = Astro.props;
+const { data } = entry;
+const url = new URL(`/work/${data.slug}`, Astro.site).href;
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'CreativeWork',
+  name: data.title,
+  headline: data.title,
+  description: data.summary,
+  url,
+  image: new URL(`/og/${data.slug}.png`, Astro.site).href,
+  datePublished: data.publishedAt.toISOString().slice(0, 10),
+  author: { '@type': 'Person', name: 'Sophie Paulussen', url: Astro.site?.href },
+  ...(data.type === 'concept' && { genre: 'Concept project' }),
+};
+
+const actions = [
+  { url: data.demoUrl, label: 'Open live demo', event: 'demo_click' },
+  { url: data.loomUrl, label: 'Watch 2-min Loom', event: 'loom_click' },
+  { url: data.repoUrl, label: 'View repo', event: 'repo_click' },
+].filter((action) => action.url);
+---
+
+<BaseLayout title={data.title} description={data.summary} ogSlug={data.slug} type="article" jsonLd={jsonLd}>
+  <article class="container-page pt-12 md:pt-16" data-case-open={data.slug}>
+    <p class="type-label">
+      <a href="/work" class="inline-flex min-h-11 items-center text-muted no-underline hover:underline">Work</a>
+    </p>
+
+    <header class="mt-4 max-w-[860px]">
+      <h1 class="type-h1">{data.title}</h1>
+      <div class="mt-5 flex flex-wrap items-center gap-x-4 gap-y-2">
+        {data.type === 'concept' && <ConceptTag label={data.conceptLabel} />}
+        <StatusLabel status={data.status} />
+      </div>
+    </header>
+
+    <div class="mt-10">
+      {
+        data.heroDemo ? (
+          <HeroDemo name={data.heroDemo} />
+        ) : (
+          <Image
+            src={data.heroImage}
+            alt={data.heroAlt}
+            widths={[640, 1120, 1600]}
+            sizes="(min-width: 1184px) 1120px, 100vw"
+            loading="eager"
+            fetchpriority="high"
+            class="aspect-[16/10] w-full rounded-[4px] border border-line object-cover"
+          />
+        )
+      }
+    </div>
+
+    <div class="mt-6">
+      <StatChips stats={data.stats} />
+    </div>
+
+    <section class="mt-14 max-w-[760px]" aria-labelledby="thirty-second">
+      <span class="rule mb-5" aria-hidden="true"></span>
+      <h2 id="thirty-second" class="type-h2">30-second version</h2>
+      <ul class="mt-6 list-disc space-y-3 pl-5">
+        {data.thirtySecond.map((point) => <li>{point}</li>)}
+      </ul>
+    </section>
+
+    {
+      actions.length > 0 && (
+        <div class="mt-10 flex flex-wrap gap-3">
+          {actions.map((action, i) => (
+            <a
+              href={action.url}
+              class:list={['btn', i === 0 ? 'btn-primary' : 'btn-secondary']}
+              data-event={action.event}
+              data-event-slug={data.slug}
+              rel="noopener"
+            >
+              {action.label}
+            </a>
+          ))}
+        </div>
+      )
+    }
+
+    <div class="mt-16 border-t border-line">
+      <slot />
+    </div>
+
+    <nav aria-label="More cases" class="mt-16 grid grid-cols-1 gap-6 border-t border-line pt-8 md:grid-cols-2">
+      {
+        prev && (
+          <div>
+            <p class="type-label text-muted">Previous case</p>
+            <a href={`/work/${prev.data.slug}`} class="mt-2 inline-flex min-h-11 items-center font-display text-[20px] leading-7">
+              {prev.data.title}
+            </a>
+          </div>
+        )
+      }
+      {
+        next && (
+          <div class="md:col-start-2 md:text-right">
+            <p class="type-label text-muted">Next case</p>
+            <a href={`/work/${next.data.slug}`} class="mt-2 inline-flex min-h-11 items-center font-display text-[20px] leading-7">
+              {next.data.title}
+            </a>
+          </div>
+        )
+      }
+    </nav>
+  </article>
+</BaseLayout>
